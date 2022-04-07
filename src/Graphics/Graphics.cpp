@@ -12,13 +12,11 @@ game::Graphics::Graphics()
     window = SDL_CreateWindow("Snake",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,640,480,0);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
     game = new game::Snake(map);
+    isRunning = true;
 }
 
 void game::Graphics::gameloop()
 {
-    game->gameLogic(map, {KEY_Q, 0, 0});
-    game::Snake::print_map(map);
-    bool isRunning = true;
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     while (isRunning) {
         SDL_Event event;
@@ -29,6 +27,14 @@ void game::Graphics::gameloop()
             }
             handleKeyPressed();
         }
+        // Clear elements and Draw the Screen
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+        SDL_RenderClear(renderer);
+        drawMap();
+
+        // Show the elements
+        SDL_RenderPresent(renderer);
+        SDL_Delay(25);
     }
 }
 
@@ -74,16 +80,20 @@ game::Graphics::~Graphics()
 void game::Graphics::handleKeyPressed()
 {
     if (keystates[SDL_SCANCODE_UP]) {
-        std::cout << "debug03" << std::endl;
-        // Clear elements and Draw the Screen
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-        drawMap();
-        SDL_RenderClear(renderer);
-
-        // Show the elements
-        SDL_RenderPresent(renderer);
-
+        if (!game->gameLogic(map, {KEY_Q, 0, 0}))
+            isRunning = false;
     }
-
+    if (keystates[SDL_SCANCODE_DOWN]) {
+        if (!game->gameLogic(map, {KEY_D, 0, 0}))
+            isRunning = false;
+    }
+    if (keystates[SDL_SCANCODE_LEFT]) {
+        if (!game->gameLogic(map, {KEY_Z, 0, 0}))
+            isRunning = false;
+    }
+    if (keystates[SDL_SCANCODE_RIGHT]) {
+        if (!game->gameLogic(map, {KEY_S, 0, 0}))
+            isRunning = false;
+    }
 }
 

@@ -18,6 +18,7 @@ namespace game {
         void gameloop();
     protected:
     private:
+        bool isRunning;
         const Uint8 *keystates;
         SDL_Window *window;
         SDL_Renderer *renderer;
