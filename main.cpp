@@ -17,29 +17,10 @@
 #include "src/Utils/Error.hpp"
 #include "src/Graphics/Graphics.hpp"
 
-
-void gameloop(SDL_Renderer *renderer)
-{
-
-}
-
-void core()
-{
-    std::array<std::array<Map, X_MAP>, Y_MAP> map;
-    game::Snake game(map);
-    game::Graphics graphics;
-
-    graphics.gameloop();
-//    game::Snake::print_map(map);
-//    game.gameLogic(map, {KEY_Q, 0, 0});
-//    game::Snake::print_map(map);
-//    game.gameLogic(map, {KEY_Q, 0, 0});
-//    game::Snake::print_map(map);
-}
-
 int main(int ac, char **av) {
     try {
-        core();
+        game::Graphics graphics;
+        graphics.gameloop();
     }
     catch (Error &e) {
         std::cout << e.what() << std::endl;

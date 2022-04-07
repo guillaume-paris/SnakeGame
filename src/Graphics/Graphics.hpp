@@ -18,10 +18,13 @@ namespace game {
         void gameloop();
     protected:
     private:
+        const Uint8 *keystates;
         SDL_Window *window;
         SDL_Renderer *renderer;
-
+        game::Snake *game;
+        std::array<std::array<Map, X_MAP>, Y_MAP> map;
         void drawMap();
+        void handleKeyPressed();
     };
 }
 
